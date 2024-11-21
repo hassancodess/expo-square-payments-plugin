@@ -4,11 +4,9 @@ const withIOSPlugin = (config) => {
   return withXcodeProject(config, async (config) => {
     const project = config.modResults;
 
-
     const scriptPhase = {
       shellPath: '/bin/sh',
       shellScript: `
-      ${project.getFirstTarget().uuid}\n
       FRAMEWORKS="\${BUILT_PRODUCTS_DIR}/\${FRAMEWORKS_FOLDER_PATH}"
       "\${FRAMEWORKS}/SquareInAppPaymentsSDK.framework/setup"
       `,
@@ -17,7 +15,7 @@ const withIOSPlugin = (config) => {
     project.addBuildPhase(
       [],
       "PBXShellScriptBuildPhase",
-      "RunScript",
+      "Run Script",
       project.getFirstTarget().uuid,
       scriptPhase
     );
